@@ -1,0 +1,34 @@
+<div class="backdrop">
+  <div class="alert-box">
+    <div class="results">
+      <div class="d-flex flex-column">
+        <div class="p-2">{{message}}</div>
+        <div class="p-2">
+          <div class="d-flex justify-content-between">
+            <span class="p-2">
+              <p>    
+                <img class="icon" src="assets/img/mine.png" alt="B">
+                Bombs Left: {{this.stats?.bombsLeft}}
+              </p>
+            </span>
+            <span class="p-2">
+              <p>
+                <img class="icon" src="assets/img/mine.png" alt="">
+                Bombs at Start: {{this.stats?.bombsStarted}}
+              </p>
+            </span>
+          </div>
+        </div>
+        <div class="p-2">Time Spent: {{this.stats?.timeSpent}}</div>
+        <div class="p-2">
+          <button class="btn btn-primary btn-light"
+                  (click)="share()">Share results!</button>
+        </div>
+      </div>
+    </div>
+    <div class="alert-box-actions">
+      <button class="btn btn-light"
+              (click)="onClose()" [disabled]="false"> Close </button>
+    </div>
+  </div>
+</div>

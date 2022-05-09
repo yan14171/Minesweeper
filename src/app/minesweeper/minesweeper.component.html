@@ -1,0 +1,45 @@
+<app-endgame *ngIf="this.gameService.isGameOver"
+  [stats]="this.gameService.stats"
+  (close)="this.gameService.startGame()">
+</app-endgame>
+<div class="d-flex">
+  <div id="board-wrapper">
+    <div id="stats-wrapper">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="lcd-wrapper">{{this.gameService.stats.toString(this.gameService.stats.timeSpent)}}</div>
+        <div id="facey" (click)="this.gameService.restartGame()"></div>
+        <div class="lcd-wrapper">{{this.gameService.stats.toString(this.gameService.stats.bombsLeft)}}</div>
+      </div>
+    </div>
+    <div class="d-flex flex-column" id="board">
+      <div class="d-flex"
+        *ngFor="let cellRow of this.getRows()">
+        <div class="cell"
+          *ngFor="let cell of cellRow"
+          (click)="cell.reveal()"
+          (contextmenu)="cell.flag()"
+          (dblclick)="cell.revealAround()">
+          <ng-container [ngTemplateOutlet]="cell.isFlaged ? flag : 
+                                                cell.isRevealed ? (cell.isBomb ? bomb : bmb_count) : none"></ng-container>
+          <ng-template #flag><img class="flag" [src]="'assets/img/flag.png'"></ng-template>
+          <ng-template #bomb><img class="bomb" src="assets/img/mine.png" alt="B"></ng-template>
+          <ng-template #bmb_count><img class="bomb-count" [src]="'assets/img/'+cell.bombCount+'.png'" [alt]="cell.bombCount"></ng-template>
+          <ng-template #none></ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="leader-wrapper">
+    <form>
+      <fieldset *ngFor="let gl_stat of this.gameService.getGlobalStats()">
+        <legend>
+          <h6 class="p-2">Stat by {{gl_stat.name}}</h6>
+        </legend>
+        <h6>Ended: {{format( gl_stat.date, 'hh:mm:ss', 'en_US')}}</h6>
+        <h6>Mines at start: {{gl_stat.minesAtStart}}</h6>
+        <h6>Mines left: {{gl_stat.minesLeft}}</h6>
+        <h6>Seconds taken: {{gl_stat.secondsTaken}}</h6>
+      </fieldset>
+    </form>
+  </div>
+</div>

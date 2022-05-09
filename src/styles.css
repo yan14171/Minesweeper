@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'digital-7regular';
+    src: url('assets/fonts/digital-7/digital-7-webfont.woff2') format('woff2'),
+         url('assets/fonts/digital-7/digital-7-webfont.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+
+}
+*{
+    caret-color: transparent;
+    box-sizing: unset;
+
+}
+.pull-left{
+    left: 0;
+}
+.cntr{
+    text-align: center;
+}
+.btn{
+    pointer-events: all;
+    opacity: 100%;
+}
