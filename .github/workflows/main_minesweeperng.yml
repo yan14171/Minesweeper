@@ -51,6 +51,5 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'minesweeperng'
-          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A489A9EFE8654E18A2FB4A0E5A26D5B3 }}
-          package: .
+          package: ./dist/minesweeper_
