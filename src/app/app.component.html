@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light" id="navbar">
+<nav class="navbar navbar-light" id="navbar">
   <a class="navbar-brand"
     routerLink="home">
     <img src="https://jaumesegarra.github.io/minesweeper/favicon.ico" width="40vw" height="40vh">
@@ -6,9 +6,15 @@
   <div class="navbar-nav">
     <a class="nav-item nav-link"
       routerLink="minesweeper">
-      <h3 class="p-1">Play</h3>
+      <h2>Play</h2>
     </a>
   </div>
+  <span class="navbar-nav login">
+    <a class="nav-item nav-link"
+      routerLink="login">
+      <h5>Log In</h5>
+    </a>
+  </span>
 </nav>
 <div class="elements d-flex flex-row justify-content-center">
   <router-outlet>
