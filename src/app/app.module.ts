@@ -7,6 +7,7 @@ import { EndgameComponent } from './endgame/endgame.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from './app-config.service';
+import { LoginComponent } from './login/login.component';
 
 export const STATS_URL = new InjectionToken<string>('STATS_URL');
 
@@ -15,7 +16,8 @@ export const STATS_URL = new InjectionToken<string>('STATS_URL');
     AppComponent,
     MinesweeperComponent,
     EndgameComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

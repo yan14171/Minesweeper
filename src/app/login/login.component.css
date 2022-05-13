@@ -1,0 +1,16 @@
+.login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.login-field-group{
+ width: 100%;
+ padding: 10px 0px;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+}
+.login-field-group>label{
+    padding-right: 5px;
+}

@@ -6,11 +6,6 @@
     font-style: normal;
 
 }
-*{
-    caret-color: transparent;
-    box-sizing: unset;
-
-}
 .pull-left{
     left: 0;
 }
