@@ -6,8 +6,9 @@ import { MinesweeperComponent } from './minesweeper/minesweeper.component';
 import { EndgameComponent } from './endgame/endgame.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AppConfigService } from './app-config.service';
 import { LoginComponent } from './login/login.component';
+import { FormsModule } from '@angular/forms';
+import { AppConfigService } from './services/app-config.service';
 
 export const STATS_URL = new InjectionToken<string>('STATS_URL');
 
@@ -22,7 +23,8 @@ export const STATS_URL = new InjectionToken<string>('STATS_URL');
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     { 

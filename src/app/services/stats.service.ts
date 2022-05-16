@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject,Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { STATS_URL } from '../app.module';
+import { Stat } from '../models/stat';
 import { AppConfigService } from './app-config.service';
-import { STATS_URL } from './app.module';
-import { Stat } from './models/stat';
 
 @Injectable({
   providedIn:'root'

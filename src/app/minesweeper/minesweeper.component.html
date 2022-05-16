@@ -22,7 +22,7 @@
           <ng-container [ngTemplateOutlet]="cell.isFlaged ? flag : 
                                                 cell.isRevealed ? (cell.isBomb ? bomb : bmb_count) : none"></ng-container>
           <ng-template #flag><img class="flag" [src]="'assets/img/flag.png'"></ng-template>
-          <ng-template #bomb><img class="bomb" src="assets/img/mine.png" alt="B"></ng-template>
+          <ng-template #bomb><img class="bomb" src="assets/img/mine_spinner_white.png" alt="B"></ng-template>
           <ng-template #bmb_count><img class="bomb-count" [src]="'assets/img/'+cell.bombCount+'.png'" [alt]="cell.bombCount"></ng-template>
           <ng-template #none></ng-template>
         </div>

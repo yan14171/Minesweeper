@@ -1,19 +1,117 @@
-h3{
-    font-smooth: never;
-    -webkit-font-smoothing : none;
+#navbar {
+  background-color: rgba(191, 191, 191, 255);
+  height: 3vh;
+  border-radius: 0px 0px 20px 20px;
+  transform: translateY(-7vh);
+  transition: transform 150ms ease-in-out;
+  padding-bottom: 45px;
 }
-#navbar{
-    background-color: rgba(191,191,191,255);
-    height: 5vh;
-    padding: 10px;
-    border-radius: 0px 0px 20px 20px;
-    transform: translateY(-7vh);
-    transition: transform 150ms ease-in-out;    
-    padding-bottom: 35px;
+
+#navbar:hover {
+  transform: translateY(0);
 }
-#navbar:hover{
-    transform: translateY(0);
+
+#navbar:hover~.elements {
+  transform: translateY(0);
 }
-.login{
-    justify-self: end !important;
+
+.elements {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  transform: translateY(-7vh);
+  transition: transform 150ms ease-in-out;
+}
+
+#play-button{
+  justify-self: center;
+}
+
+#login-button{
+  justify-self: flex-end;
+  cursor: pointer;
+}
+
+.hero {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top:0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.cube {
+  pointer-events: none;
+  z-index: -1;
+  border: solid 1px black;
+  position: fixed;
+  top: 80vh;
+  left: 45vw;
+  width: 10px;
+  height: 10px;
+  transform-origin: top left;
+  transform: scale(0) rotate(0deg) translate(-50%, -50%);
+  animation: cube 12s ease-in forwards infinite;
+}
+
+.cube:nth-child(2) {
+  animation-delay: 1s;
+  left: 25vw;
+  top: 40vh;
+}
+
+.cube:nth-child(3) {
+  animation-delay: 2s;
+  left: 75vw;
+  top: 50vh;
+}
+
+.cube:nth-child(4) {
+  animation-delay: 3s;
+  left: 90vw;
+  top: 10vh;
+}
+
+.cube:nth-child(5) {
+  animation-delay: 4s;
+  left: 10vw;
+  top: 85vh;
+}
+
+.cube:nth-child(6) {
+  animation-delay: 5s;
+  left: 50vw;
+  top: 10vh;
+}
+
+.cube:nth-child(7) {
+  animation-delay: 6s;
+  left: 10vw;
+  top: 10vh;
+}
+
+.cube:nth-child(8) {
+    animation-delay: 7s;
+    left: 60vw;
+    top: 10vh;
+  }
+
+.cube:nth-child(9) {
+    animation-delay: 8s;
+    left: 80vw;
+    top: 80vh;
+  }
+
+@keyframes cube {
+  0% {
+    transform: scale(0) rotate(0deg) translate(-50%, -50%);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(20) rotate(960deg) translate(-50%, -50%);
+    opacity: 0;
+  }
 }

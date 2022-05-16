@@ -19,6 +19,7 @@
     background-color: black;
     font-family: 'digital-7regular';
     color: rgba(251,0,7,255);
+    min-width: 3vw;
     border: medium rgba(128,128,128,255) inset;
 }
 #leader-wrapper{

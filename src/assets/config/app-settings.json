@@ -1,3 +1,4 @@
 {
-    "apiBaseUrl": "https://minesweeperapi.azurewebsites.net"
+    "apiBaseUrl": "https://minesweeperapi.azurewebsites.net",
+    "apiBaseUrl_local": "https://localhost:7285"
 }

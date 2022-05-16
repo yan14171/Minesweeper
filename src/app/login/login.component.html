@@ -1,22 +1,23 @@
-<div class="container">
+<img  src="../../assets/img/mine_spinner.png"
+      width="35vw"
+      alt="Logo Spinner" class="loader"
+      *ngIf="isLoading; else form_container">
+
+<ng-template class="container" #form_container>
   <h2>Login</h2>
-  <form>
+  <form (ngSubmit)="onLogin(f)" #f="ngForm">
     <div class="form-group login-form">
       <div class="login-field-group">
-        <label for="email">
-          <h6>Email</h6>
-        </label>
-        <input type="email" id="email">
+        <label for="email"><h6>Email</h6></label>
+        <input type="email" id="email" name="email" ngModel required email>
       </div>
       <div class="login-field-group">
-        <label for="password">
-          <h6>Password</h6>
-        </label>
-        <input type="password" id="passord">
+        <label for="password"><h6>Password</h6></label>
+        <input type="password" id="passord" name="password" ngModel required password minlength="8">
       </div>
       <div class="login-field-group">
-        <button class="btn-light">Submit</button>
+        <button class="btn-light" type="submit" [disabled]="!f.valid">Submit</button>
       </div>
     </div>
   </form>
-</div>
+</ng-template>

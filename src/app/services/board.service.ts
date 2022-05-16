@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Stat } from '../models/stat';
 import { StatsService } from './stats.service';
-import { Stat } from './models/stat';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +19,9 @@ export class AppConfigService {
       });
   }
   get apiBaseUrl() : string {
-    return this.appConfig.apiBaseUrl;
+    if(environment.production)
+      return this.appConfig.apiBaseUrl;
+    else 
+      return this.appConfig.apiBaseUrl_local;
   }
 }

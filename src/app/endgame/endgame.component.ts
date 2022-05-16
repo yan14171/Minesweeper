@@ -1,6 +1,5 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { StatsService } from '../stats.service';
+import { StatsService } from '../services/stats.service';
 @Component({
   selector: 'app-endgame',
   templateUrl: './endgame.component.html',

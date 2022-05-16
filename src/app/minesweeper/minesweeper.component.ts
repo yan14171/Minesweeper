@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { BoardService, Cell } from '../board.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BoardService, Cell } from '../services/board.service';
 
 @Component({
   selector: 'app-minesweeper',
@@ -8,10 +8,13 @@ import { BoardService, Cell } from '../board.service';
   styleUrls: ['./minesweeper.component.css'],
   providers: [BoardService]
 })
-export class MinesweeperComponent implements OnInit {
+export class MinesweeperComponent implements OnInit, OnDestroy {
   constructor(public gameService: BoardService) {
     this.gameService.isGameOver = false;
    }
+  ngOnDestroy(): void {
+    this.gameService.stats.stop();
+  }
   ngOnInit(): void {
     this.gameService.isGameOver = false;
   }
