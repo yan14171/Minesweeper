@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../services/login.service';
 
@@ -12,10 +12,10 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   public isloggedIn: boolean = false;
   public isLoading: boolean = false;
-  public errorMessage: string | undefined = undefined;
+  public Message: string | undefined = undefined;
 
   constructor(private loginService: LoginService,
-              private cookieService: CookieService) {
+              private router: Router) {
         //check the login status here
    }
 
@@ -23,26 +23,27 @@ export class LoginComponent implements OnInit {
   
   onLogin(form: NgForm)
   {
-    console.log(form.value);
-    console.log(form.valid);
-      form.reset();
     this.isLoading = true;
       
     let loginObs = this.loginService
       .login(form.value.email, form.value.password);
-
+    
     loginObs.subscribe({
       next: (res) =>{
-        this.isLoading = false;
         this.isloggedIn = true;
-        this.errorMessage = undefined;
-        this.cookieService.set('auth_token', res.token);
-        alert(`Logged in`);
+        this.Message = `Succesfully logged in <br>${res.messages[res.messages.length-1]}`;
+        setTimeout(() => {
+          this.router.navigate(['/minesweeper'])
+        }, 1000);
       },
       error: (err) =>{
-        this.isLoading = false;
         this.isloggedIn = false;
-        this.errorMessage = err.errorMessage;
+        this.Message = err.messages.join('<br>');
+        this.isLoading = false;
+      },
+      complete: () =>{
+        form.reset();
+        this.isLoading = false;
       }
     });
   }

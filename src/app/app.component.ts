@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';  
-import { BrowserModule } from '@angular/platform-browser';
-import { CookieService } from 'ngx-cookie-service';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +7,13 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private cookieService: CookieService) {
+  constructor(private loginService: LoginService) {
   }
   public isAuthorized() : boolean{
-    return this.cookieService.check("auth_token");
+    return this.loginService.isAuthorized();
   }
-  public logOut(): void{
+  public logout(): void{
     if (confirm("Are you sure you want to log out?"))
-      this.cookieService.delete("auth_token");
+      this.loginService.logout();
   }
 }

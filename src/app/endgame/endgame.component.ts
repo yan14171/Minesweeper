@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { LoginService } from '../services/login.service';
 import { StatsService } from '../services/stats.service';
 @Component({
   selector: 'app-endgame',
@@ -12,16 +13,22 @@ export class EndgameComponent implements OnInit {
   public stats: StatsService | undefined;
   @Output()
   public close: EventEmitter<void> = new EventEmitter<void>()
-  constructor() { }
+  constructor(private loginService: LoginService,
+              private statsService: StatsService) {}
 
   ngOnInit(): void {
   }
-
   public onClose(): void{
     this.close.emit();
   }
-
   share(): void{
-    this.stats?.share();
+    if(this.isAuthenticated())
+      this.stats?.share()?.subscribe({
+        complete: () => this.statsService.load()?.subscribe() 
+    });
+    this.onClose();
+  }
+  isAuthenticated(): boolean{
+    return this.loginService.isAuthorized();
   }
 }

@@ -1,19 +1,40 @@
-<img  src="../../assets/img/mine_spinner.png"
-      width="35vw"
-      alt="Logo Spinner" class="loader"
-      *ngIf="isLoading; else form_container">
-
+<img src="../../assets/img/mine_spinner.png"
+  width="35vw"
+  alt="Logo Spinner" class="loader"
+  *ngIf="isLoading; else form_container">
 <ng-template class="container" #form_container>
   <h2>Login</h2>
+  <div class="alert"
+    *ngIf="Message != undefined"
+    [ngClass]="{
+                    'alert-danger': !isloggedIn,
+                    'alert-success': isloggedIn
+                  }"
+    [innerHTML]="Message"></div>
   <form (ngSubmit)="onLogin(f)" #f="ngForm">
     <div class="form-group login-form">
       <div class="login-field-group">
-        <label for="email"><h6>Email</h6></label>
-        <input type="email" id="email" name="email" ngModel required email>
+        <label for="email">
+          <h6>Email</h6>
+        </label>
+        <div class="d-flex flex-column">
+          <input type="email" id="email" name="email"
+            required email ngModel #email="ngModel" />
+          <p class="alert alert-mine"
+            *ngIf="email.invalid && (email.dirty || email.touched)">Email is invalid</p>
+        </div>
       </div>
       <div class="login-field-group">
-        <label for="password"><h6>Password</h6></label>
-        <input type="password" id="passord" name="password" ngModel required password minlength="8">
+        <label for="password">
+          <h6>Password</h6>
+        </label>
+        <div class="d-flex flex-column">
+          <input type="password" id="passord" name="password"
+            required password minlength="8"
+            ngModel #password="ngModel">
+          <p class="alert alert-mine"
+            *ngIf="password.invalid && (password.dirty || password.touched)">Password is invalid</p>
+        </div>
       </div>
       <div class="login-field-group">
         <button class="btn-light" type="submit" [disabled]="!f.valid">Submit</button>

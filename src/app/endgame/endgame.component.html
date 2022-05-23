@@ -20,8 +20,12 @@
           </div>
         </div>
         <div class="p-2">Time Spent: {{this.stats?.timeSpent}}</div>
-        <div class="p-2">
+        <div class="p-2 d-flex flex-row justify-content-center">
+          <div class="alert alert-mine"*ngIf="!isAuthenticated()">
+            You need to log in it order to share your results!
+          </div>
           <button class="btn-light"
+                  *ngIf="isAuthenticated()"
                   (click)="share()">Share results!</button>
         </div>
       </div>

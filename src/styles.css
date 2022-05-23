@@ -16,3 +16,12 @@
     pointer-events: all;
     opacity: 100%;
 }
+.alert{
+    max-width: fit-content;
+    overflow-x: hidden;
+  }
+  .alert-mine{
+    border-image: url("/../../assets/img/mine_spinner_white.png");
+    border-width: 2vh;
+    padding: 0;
+  }

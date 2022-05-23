@@ -24,6 +24,14 @@ export class MinesweeperComponent implements OnInit, OnDestroy {
   }
   format(date: Date, a:string, b:string) : string
   {
-    return formatDate(date,a,b);
+    var datenum: number; 
+    //Local time converted to UTC
+    console.log("Time: " + date);
+    var localOffset = new Date(date).getTimezoneOffset() * 60000;
+    var localTime = new Date(date).getTime();
+        datenum = localTime - localOffset;
+    var newdate = new Date(datenum);
+    console.log("Converted time: " + date);
+    return newdate.toLocaleTimeString();
   }
 }

@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AppConfigService {
+export class  AppConfigService {
   private appConfig: any;
   private http : HttpClient;
   
