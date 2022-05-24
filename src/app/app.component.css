@@ -5,10 +5,15 @@
   transform: translateY(-7vh);
   transition: transform 150ms ease-in-out;
   padding-bottom: 45px;
+  box-sizing: inherit;
 }
 
 #navbar:hover {
   transform: translateY(0);
+}
+
+#navbar:after, #navbar:before{
+  box-sizing: inherit;
 }
 
 #navbar:hover~.elements {
