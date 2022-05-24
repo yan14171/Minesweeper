@@ -13,13 +13,15 @@
 }
 
 #navbar:after, #navbar:before{
-  box-sizing: inherit;
+  box-sizing: content-box;
 }
 
 #navbar:hover~.elements {
   transform: translateY(0);
 }
-
+*,*:before, *:after{
+  box-sizing: content-box;
+  }
 .elements {
   position: relative;
   display: flex;
