@@ -1,6 +1,6 @@
 <app-endgame *ngIf="this.gameService.isGameOver"
   [stats]="this.gameService.stats"
-  (close)="this.gameService.startGame()">
+  (close)="this.gameService.restartGame()">
 </app-endgame>
 <div class="d-flex">
   <div id="board-wrapper">

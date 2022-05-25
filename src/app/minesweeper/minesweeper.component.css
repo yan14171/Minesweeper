@@ -36,10 +36,12 @@
     max-height: 70%;
     border: 5px white outset;
 }
+div.cell{
+    cursor: pointer;
+}
 img.bomb-count, 
 img.bomb,
 img.flag{
-    cursor: pointer;
     width: 100%;
     aspect-ratio: 1;
     vertical-align: top;

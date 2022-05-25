@@ -19,9 +19,7 @@
 #navbar:hover~.elements {
   transform: translateY(0);
 }
-*,*:before, *:after{
-  box-sizing: content-box;
-  }
+
 .elements {
   position: relative;
   display: flex;
@@ -33,6 +31,7 @@
 
 #play-button{
   justify-self: center;
+  cursor: pointer;
 }
 
 #login-button{

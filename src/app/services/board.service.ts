@@ -11,8 +11,13 @@ export class BoardService {
   readonly columnCount: number = 30;
   public bombsGenerated: number = Infinity;
   public isGameOver: boolean = false;
+  public isStarted: boolean = false;
   constructor(public stats: StatsService) {
-    this.startGame();
+    this.prepareGame();
+  }
+  private prepareGame() {
+    this.generateClean(this.rowCount, this.columnCount);
+    this.bombsGenerated = Math.floor(this.getMineCount(this.rowCount, this.columnCount));
   }
   private generateNumbers(rowCount: number, columnCount: number): void {
     for (let i = 0; i < rowCount; i++)
@@ -63,6 +68,15 @@ export class BoardService {
 
     return mineCount;
   }
+  private revealBombs()
+  {
+    for (const row of this.grid) {
+      for (const cell of row) {
+        if(cell.isBomb)
+          cell.isRevealed = true;
+      }
+    }
+  }
   public getRows(): Cell[][] {
     return this.grid;
   }
@@ -71,19 +85,27 @@ export class BoardService {
   }
   public endGame(): void{
     this.stats.stop();
+    this.revealBombs();
     this.isGameOver = true;
+    this.isStarted = false;
   }
-  public startGame(): void{
-    this.generateClean(this.rowCount, this.columnCount);
-    this.bombsGenerated = Math.floor(this.getMineCount(this.rowCount, this.columnCount));
-    this.generateMines(this.bombsGenerated);
-    this.generateNumbers(this.rowCount, this.columnCount);
-    this.isGameOver = false;
+  public startGame(startX: number, startY: number): void{
+    do
+    {
+      this.generateClean(this.rowCount, this.columnCount);
+      this.generateMines(this.bombsGenerated);
+      this.generateNumbers(this.rowCount, this.columnCount);
+    }
+    while(this.grid[startY][startX].isBomb || this.grid[startY][startX].bombCount != 0);
+    
+    this.isStarted = true;
+    this.grid[startY][startX].reveal();
     this.stats.start(this.bombsGenerated);
   }
   public restartGame(): void{
     this.endGame();
-    this.startGame();
+    this.prepareGame();
+    this.isGameOver = false;
   }
 }
 
@@ -140,6 +162,9 @@ export class Cell {
       y >= 0 && y < this.board.rowCount;
   }
   public reveal(): void {
+    if(!this.board.isStarted)
+      this.board.startGame(this.X, this.Y);
+
     if(this.isFlaged || this.board.isGameOver)
       return;
 
@@ -189,7 +214,7 @@ export class Cell {
         this.board.endGame();
     }
     return false;
-  }
+  } 
 }
 
 
