@@ -1,17 +1,15 @@
-import { formatDate } from '@angular/common';
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IBoardService } from '../services/interfaces/IBoardService';
 import { Stat } from '../models/stat';
-import { BoardService, Cell } from '../services/board.service';
+import { Cell } from '../services/board.service';
 
 @Component({
-  selector: 'app-minesweeper',
+  selector: 'app-minesweeper-two-piece',
   templateUrl: './minesweeper.component.html',
-  styleUrls: ['./minesweeper.component.css'],
-  providers: [BoardService]
+  styleUrls: ['./minesweeper.component.css']
 })
-export class MinesweeperComponent implements OnInit, OnDestroy {
+export class MinesweeperTwoPieceComponent implements OnInit, OnDestroy {
   public gameService: IBoardService;
   constructor(route: ActivatedRoute, injector: Injector) {
     const modeToken = route.snapshot.data['gamemode']; 

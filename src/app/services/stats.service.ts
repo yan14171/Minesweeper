@@ -26,6 +26,8 @@ export class StatsService {
     this.load()?.subscribe();
   }
   start(bombsStarted: number): void {
+    if(this.interval)
+      return;
     this.bombsStarted = bombsStarted;
     this.bombsLeft = bombsStarted;
     this.timeSpent = 0;
@@ -33,7 +35,10 @@ export class StatsService {
   }
   stop(): void {
     if (this.interval)
+    {
       clearInterval(this.interval);
+      this.interval = undefined;
+    }
   }
   addBomb(): void {
     this.bombsLeft++;

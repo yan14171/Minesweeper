@@ -1,19 +1,61 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TemplateRef } from '@angular/core';
+import { IBoardService } from './interfaces/IBoardService';
 import { Stat } from '../models/stat';
 import { StatsService } from './stats.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BoardService {
-  private grid: Cell[][] = [];
-  readonly rowCount: number = 16;
-  readonly columnCount: number = 30;
+export class BoardService implements IBoardService {
+
   public bombsGenerated: number = Infinity;
   public isGameOver: boolean = false;
   public isStarted: boolean = false;
+  private grid: Cell[][] = [];
+  readonly rowCount: number = 16;
+  readonly columnCount: number = 30;
+
   constructor(public stats: StatsService) {
     this.prepareGame();
+  }
+  public getRows(): Cell[][] {
+    return this.grid;
+  }
+  public getGlobalStats(): Stat[]{
+    return this.stats.globalStats;
+  }
+  public endGame(): void{
+    this.stats.stop();
+    this.revealBombs();
+    this.isGameOver = true;
+    this.isStarted = false;
+  }
+  public startGame(startX: number, startY: number): void{
+    do
+    {
+      this.generateClean(this.rowCount, this.columnCount);
+      this.generateMines(this.bombsGenerated);
+      this.generateNumbers(this.rowCount, this.columnCount);
+    }
+    while(this.grid[startY][startX].isBomb || this.grid[startY][startX].bombCount != 0);
+    
+    this.isStarted = true;
+    this.grid[startY][startX].reveal();
+    this.stats.start(this.bombsGenerated);
+  }
+  public restartGame(): void{
+    this.endGame();
+    this.prepareGame();
+    this.isGameOver = false;
+  }
+  public reveal(cell: Cell): void{
+    this.grid[cell.Y][cell.X].reveal();
+  }
+  public flag(cell: Cell): void{
+    this.grid[cell.Y][cell.X].flag();
+  }
+  public revealAround(cell: Cell): void{
+    this.grid[cell.Y][cell.X].revealAround();
   }
   private prepareGame() {
     this.generateClean(this.rowCount, this.columnCount);
@@ -61,7 +103,7 @@ export class BoardService {
   }
   private getMineCount(rowCount: number, columnCount: number): number {
     let cellCount = rowCount * columnCount;
-    let mineCount = 0.0002 * Math.pow(cellCount, 2) + 0.0938 * cellCount + 0.8937
+    let mineCount = 0.0002 * Math.pow(cellCount, 2) + 0.0938 * cellCount + 0.8937;
     //let mineCount = cellCount; //full mine field for testing 
     //let mineCount = 1; //1 mine for testing 
     console.log(`generated ${mineCount} mines`);
@@ -76,36 +118,6 @@ export class BoardService {
           cell.isRevealed = true;
       }
     }
-  }
-  public getRows(): Cell[][] {
-    return this.grid;
-  }
-  public getGlobalStats(): Stat[]{
-    return this.stats.globalStats;
-  }
-  public endGame(): void{
-    this.stats.stop();
-    this.revealBombs();
-    this.isGameOver = true;
-    this.isStarted = false;
-  }
-  public startGame(startX: number, startY: number): void{
-    do
-    {
-      this.generateClean(this.rowCount, this.columnCount);
-      this.generateMines(this.bombsGenerated);
-      this.generateNumbers(this.rowCount, this.columnCount);
-    }
-    while(this.grid[startY][startX].isBomb || this.grid[startY][startX].bombCount != 0);
-    
-    this.isStarted = true;
-    this.grid[startY][startX].reveal();
-    this.stats.start(this.bombsGenerated);
-  }
-  public restartGame(): void{
-    this.endGame();
-    this.prepareGame();
-    this.isGameOver = false;
   }
 }
 
@@ -143,23 +155,6 @@ export class Cell {
           count++;
       }
     return count;    
-  }
-  private getNeighbour(dx: number, dy: number) {
-    let neighbourX = this.X + dx;
-    let neighbourY = this.Y + dy;
-    if (dx == 0 && dy == 0)
-      return null;
-
-    if (!this.inbound(neighbourX, neighbourY))
-      return null;
-
-    let neighbour = this.board.getRows()[neighbourY][neighbourX];
-
-    return neighbour;
-  }
-  private inbound(x: number, y: number): boolean {
-    return x >= 0 && x < this.board.columnCount &&
-      y >= 0 && y < this.board.rowCount;
   }
   public reveal(): void {
     if(!this.board.isStarted)
@@ -199,12 +194,12 @@ export class Cell {
         }
     
   }
-  public flag(){
+  public flag(): void{
     if(this.isFlaged)
     {
       this.board.stats.addBomb();
       this.isFlaged = false;
-      return false;
+      return;
     }
     if(!this.isRevealed)
     {
@@ -213,8 +208,24 @@ export class Cell {
       if(this.isBomb && this.board.stats.bombsLeft == 0)
         this.board.endGame();
     }
-    return false;
   } 
+  private getNeighbour(dx: number, dy: number) {
+    let neighbourX = this.X + dx;
+    let neighbourY = this.Y + dy;
+    if (dx == 0 && dy == 0)
+      return null;
+
+    if (!this.inbound(neighbourX, neighbourY))
+      return null;
+
+    let neighbour = this.board.getRows()[neighbourY][neighbourX];
+
+    return neighbour;
+  }
+  private inbound(x: number, y: number): boolean {
+    return x >= 0 && x < this.board.columnCount &&
+      y >= 0 && y < this.board.rowCount;
+  }
 }
 
 
