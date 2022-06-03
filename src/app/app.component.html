@@ -4,10 +4,18 @@
     <img src="https://jaumesegarra.github.io/minesweeper/favicon.ico" width="40vw" height="40vh">
   </a>
   <div class="navbar-nav" id="play-button">
-    <a class="nav-item nav-link"
+    <div class="dropdown">
+      <a class="nav-item nav-link"
       routerLink="minesweeper">
       <h2>Play</h2>
-    </a>
+      </a>
+      <div class="dropdown-content">
+        <a class="nav-item nav-link"
+          routerLink="minesweeper">
+          <h2>Lobbies</h2>
+        </a>
+      </div>
+    </div>
   </div>
   <span class="navbar-nav" id="login-button" *ngIf="!isAuthorized()">
     <a class="nav-item nav-link"
@@ -25,16 +33,14 @@
   <router-outlet>
   </router-outlet>
 </div>
-
-
 <div class="hero">
-  <img src="../assets/img/0.png" class="cube"/>
-  <img src="../assets/img/1.png" class="cube"/>
-  <img src="../assets/img/2.png" class="cube"/>
-  <img src="../assets/img/3.png" class="cube"/>
-  <img src="../assets/img/4.png" class="cube"/>
-  <img src="../assets/img/5.png" class="cube"/>
-  <img src="../assets/img/6.png" class="cube"/>
-  <img src="../assets/img/7.png" class="cube"/>
-  <img src="../assets/img/8.png" class="cube"/>
+  <img src="../assets/img/0.png" class="cube" />
+  <img src="../assets/img/1.png" class="cube" />
+  <img src="../assets/img/2.png" class="cube" />
+  <img src="../assets/img/3.png" class="cube" />
+  <img src="../assets/img/4.png" class="cube" />
+  <img src="../assets/img/5.png" class="cube" />
+  <img src="../assets/img/6.png" class="cube" />
+  <img src="../assets/img/7.png" class="cube" />
+  <img src="../assets/img/8.png" class="cube" />
 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import  Popper from 'popper.js';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -7,8 +8,7 @@ import { LoginService } from './services/login.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private loginService: LoginService) {
-  }
+  constructor(private loginService: LoginService) {  }
   public isAuthorized() : boolean{
     return this.loginService.isAuthorized();
   }
