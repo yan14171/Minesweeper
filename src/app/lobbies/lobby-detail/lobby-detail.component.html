@@ -1,0 +1,45 @@
+  <div id="lobbyform" *ngIf="lobby; else lobbychoise">
+    <div class="custom-row">
+      <h2>Minesweeper Lobby {{lobby.id}}</h2>
+    </div>
+    <div class="custom-row">
+      <div class="alert-success">
+        <h5>{{(lobby.userIdentities.length > 1 ? 'Closed' : 'Open')}}</h5>
+      </div>
+      <div class="player-count">
+        <h5>{{(lobby.userIdentities.length + "/2 players")}}</h5>
+      </div>
+    </div>
+    <div class="custom-row user-row">
+      <h4>Users:</h4>
+      <div class="custom-column">
+        <div *ngFor="let user of lobby.userIdentities">
+          <h6>{{user}}</h6>
+        </div>
+      </div>
+    </div>
+    <div class="custom-row">
+      <div class="col-md-12">
+        <button class="btn-light" (click)="onJoin()" [disabled]="!canJoin">
+          <h5>Join</h5>
+        </button>
+        <button class="btn-light" (click)="onDisconnect()" [disabled]="!canDisconnect">
+          <h5>Disconnect</h5>
+        </button>
+      </div>
+      <div class="col-md-12">
+        <button class="btn-light" (click)="onClose()">
+          <h5>Close</h5>
+        </button>
+      </div>
+    </div>
+      <div class="custom-row">
+      <h4 class="alert-danger" *ngIf="errorJoining">
+        {{errorMessage}}
+      </h4>
+    </div>
+    
+  </div>
+  <ng-template #lobbychoise class="noselect">
+    <h4 class="noselect">Please, choose a lobby</h4>
+  </ng-template>

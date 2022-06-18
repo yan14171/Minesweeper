@@ -1,0 +1,9 @@
+<div class="col-md-4 col-s-2" id="list">
+  <app-lobby-list></app-lobby-list>
+</div>
+  <app-lobby-detail 
+    *ngIf="!isSelected; else infoText">
+  </app-lobby-detail>
+  <ng-template #infoText>
+    <p>Select a Lobby!</p>
+  </ng-template>

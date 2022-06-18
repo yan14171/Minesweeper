@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import { Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IBoardService } from '../services/interfaces/IBoardService';

@@ -1,0 +1,13 @@
+.lobby-item{
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 3vw 0 1vw;
+}
+.lobby-item:hover{
+    background: rgba(191, 191, 191, 255);
+    transition-timing-function: ease-in;
+    transition: 0.5s;
+    cursor: pointer;
+}

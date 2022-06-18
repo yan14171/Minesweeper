@@ -1,0 +1,51 @@
+.lobby-pic{
+    max-width: 30vw;
+}
+.alert-success{
+    padding: 0 10px 0 10px;
+    text-align: center;
+    cursor: default;
+}
+h5{
+    margin: 5px 0 5px 0;
+}
+.custom-row{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin: 2vw 1vh 2vw 1vh;
+}
+.user-row{
+    justify-content: space-evenly;
+}
+.custom-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.player-count{
+    justify-self: flex-end;
+}
+.col-md-12{
+    max-width: min-content;
+}
+.btn-light:disabled{
+    opacity: 0.5;
+}
+.alert-danger{
+    animation: blink 4s ease-out;
+    position: fixed;
+    margin-top: 1vh;
+}
+@keyframes blink{
+    0%{opacity: 0;}
+    25%{opacity: .5;}
+    50%{opacity: 1;}
+    75%{opacity: .5;}
+    100%{opacity: 0;}
+}
+#lobbyform{
+    min-width: 45vw;
+}

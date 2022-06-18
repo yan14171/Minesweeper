@@ -1,7 +1,5 @@
-import { DeclarationListEmitMode } from "@angular/compiler";
-
 export interface Stat{
-    name: string;
+    userName: string;
     date: Date;
     minesAtStart: number;
     minesLeft: number;

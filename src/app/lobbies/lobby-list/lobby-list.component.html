@@ -1,0 +1,21 @@
+<div class="custom-row">
+  <button id="newlobby" class="btn-light" (click)="trycreate()">
+    <svg class="bi bi-plus" viewBox="0 0 16 16">
+      <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /> </svg>
+  </button>
+  <div class="row" *ngIf="!isErrorLoading; else errorloading">
+    <app-lobby-item
+      *ngFor="let lobby of lobbys"
+      [lobby]="lobby"
+      (click)="onLobbySelected(lobby)">
+    </app-lobby-item>
+  </div>
+  <button class="btn-light" id="refresh" (click)="refresh()" [disabled]="isRefreshDisabled">
+    <svg class="bi bi-refresh" viewBox="0 0 24 24">
+      <path d="M13.5 2c-5.621 0-10.211 4.443-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-3.351 3.06-6 6.475-6 3.584 0 6.5 2.916 6.5 6.5s-2.916 6.5-6.5 6.5c-1.863 0-3.542-.793-4.728-2.053l-2.427 3.216c1.877 1.754 4.389 2.837 7.155 2.837 5.79 0 10.5-4.71 10.5-10.5s-4.71-10.5-10.5-10.5z" /></svg>
+  </button>
+</div>
+<h4 class="alert-info" style="text-align:center;margin-top:1vh;" *ngIf="isCreateViolated">You can create new lobbys every 5 seconds!</h4>
+<ng-template #errorloading>
+  <h4 class="alert-danger">{{errorMessage}}</h4>
+</ng-template>

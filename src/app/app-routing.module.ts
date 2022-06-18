@@ -1,6 +1,7 @@
 import { InjectionToken, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { LobbiesComponent } from './lobbies/lobbies.component';
 import { LoginComponent } from './login/login.component';
 import { MinesweeperTwoPieceComponent } from './minesweeper/minesweeper-two-piece.component';
 import { MinesweeperComponent } from './minesweeper/minesweeper.component';
@@ -16,8 +17,11 @@ const routes: Routes = [
     children:[]
   },
   {
-    path: 'minesweeper/twopiece', component: MinesweeperTwoPieceComponent,
+    path: 'lobbies/:lobbyId', component: MinesweeperTwoPieceComponent,
     data: { gamemode: MULTI_PLAYER },
+  },
+  {
+    path: 'lobbies', component: LobbiesComponent
   },
   {
     path: 'home', component: HomeComponent

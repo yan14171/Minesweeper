@@ -1,0 +1,40 @@
+button{
+    padding: 0;
+}
+#newlobby:hover{
+    background: rgba(191, 191, 191, 255);
+    transition-timing-function: ease-in;
+    transition: 0.5s;
+}
+.bi-plus{
+    height: 6vh;
+    animation: blink 5s linear infinite;
+}
+.bi-refresh{
+    height: 4.5vh;
+    fill: rgba(191, 191, 191, 255);
+}
+.bi:hover{
+    cursor: pointer;
+}
+button{
+    cursor: pointer;
+}
+.custom-row{
+    margin-right: .5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+.alert-info{
+    animation: blink 1s linear infinite;
+    position: absolute;
+}
+@keyframes blink{
+    0%{opacity: 0;}
+    25%{opacity: .5;}
+    50%{opacity: 1;}
+    75%{opacity: .5;}
+    100%{opacity: 0;}
+}

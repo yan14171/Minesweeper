@@ -17,13 +17,21 @@ export class BoardOnlineService implements IBoardService{
   private _grid: Cell[][] = [];
 
   constructor(public stats: StatsService,
-              private _hub: GameHub
-              ) { 
-    this._hub.start().then(() => {
-      this._hub.StateChanged().subscribe({
-        next: state => this.refreshState(state)});
-       this.prepareGame();
-    });
+    private _hub: GameHub
+  ) 
+  { 
+    this._hub.StateChanged()
+    .subscribe(
+      {
+        next: state =>
+          this.refreshState(state)
+      });
+  }
+  public async start(lobbyId: number): Promise<void> {
+    await this._hub.start(lobbyId);
+  }
+  public async stop(): Promise<void>{
+    await this._hub.stop();
   }
   public getRows(): Cell[][] {
     return this._grid;
@@ -44,23 +52,22 @@ export class BoardOnlineService implements IBoardService{
   public reveal(cell: Cell): void {
     this._hub.reveal(cell);
   }
-  private async prepareGame() {
+  public async prepareGame() {
     await this._hub.prepareGame();
   }
-  private async endGame(): Promise<void>{
+  private async endGame(): Promise<void> {
     await this._hub.endGame();
   }
-  private refreshState(state: BoardState)
-  {
+  private refreshState(state: BoardState) {
     this._grid = state.grid;
 
-    if(state.isGameOver)
+    if (state.isGameOver)
       this.stats.stop();
 
-    if(!this.isStarted && state.isStarted)
-        this.stats.start(state.bombsGenerated);
+    if (!this.isStarted && state.isStarted)
+      this.stats.start(state.bombsGenerated);
 
-    this.bombsGenerated = state.bombsGenerated;    
+    this.bombsGenerated = state.bombsGenerated;
     this.stats.bombsLeft = state.bombsLeft;
     this.isGameOver = state.isGameOver;
     this.isStarted = state.isStarted;

@@ -156,4 +156,9 @@
 .dropdown:hover .dropdown-content {
   display: block;
   animation: dropdown 0.2s ease-in forwards;
+  transition-timing-function: ease-in;
+}
+
+a{
+  cursor: pointer;
 }

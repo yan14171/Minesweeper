@@ -39,7 +39,7 @@
     <form>
       <fieldset *ngFor="let gl_stat of getGlobalStats()">
         <legend>
-          <h6 class="p-2">Stat by {{gl_stat.name}}</h6>
+          <h6 class="p-2">Stat by {{gl_stat.userName}}</h6>
         </legend>
         <h6>Ended: {{format_time( gl_stat.date, 'hh:mm:ss', 'en_US')}}</h6>
         <h6>Mines at start: {{gl_stat.minesAtStart}}</h6>
