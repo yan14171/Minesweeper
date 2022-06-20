@@ -1,3 +1,6 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy Node.js app to Azure Web App - minesweeper
 
 on:
@@ -8,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -21,9 +24,9 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --prod
-        working-directory: .
-
+          npm run build --if-present
+          npm run test --if-present
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -44,9 +47,10 @@ jobs:
           name: node-app
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
         with:
           app-name: 'minesweeper'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_18114C3B0A254E5CB9B6A91DFAA830BB }}
-          package: ./dist/minesweeper_
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_96DA5F496FC145CFAABB6EA24AB8EC67 }}
+          package: .
