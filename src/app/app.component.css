@@ -5,7 +5,7 @@
   transform: translateY(-7vh);
   transition: transform 150ms ease-in-out;
   padding-bottom: 45px;
-  box-sizing: inherit;
+  box-sizing: content-box;
   z-index: 1;
 }
 
