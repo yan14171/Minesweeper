@@ -30,6 +30,9 @@ export class BoardOnlineService implements IBoardService{
   public async start(lobbyId: number): Promise<void> {
     await this._hub.start(lobbyId);
   }
+  public getAIUrl(lobbyID: number){
+    return this._hub.getAIUrl(lobbyID);
+  }
   public async stop(): Promise<void>{
     await this._hub.stop();
   }

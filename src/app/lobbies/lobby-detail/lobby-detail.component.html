@@ -23,6 +23,9 @@
         <button class="btn-light" (click)="onJoin()" [disabled]="!canJoin">
           <h5>Join</h5>
         </button>
+        <button class="btn-light" (click)="onJoin(true)" [disabled]="!canJoin">
+          <h5>Train your AI</h5>
+        </button>
         <button class="btn-light" (click)="onDisconnect()" [disabled]="!canDisconnect">
           <h5>Disconnect</h5>
         </button>

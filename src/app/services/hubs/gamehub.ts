@@ -59,6 +59,9 @@ export default class GameHub implements OnDestroy
         }
         return con;
     }
+    public getAIUrl(lobbyId: number) : string{
+        return this._connectionBaseUrl + `?lobbyId=${lobbyId}`;
+    }
     public async stop():Promise<any>{
         await this._connection.stop();
         if (this._connection.state != HubConnectionState.Disconnected)

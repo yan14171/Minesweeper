@@ -17,12 +17,17 @@ export class LobbyDetailComponent{
   constructor(private _lobbyService: LobbyService,
               private router: Router){
             }
-  onJoin(): void{
+  onJoin(isAI = false): void{
     let joinreq = this._lobbyService.join(this.lobby!.id);
     joinreq.subscribe({
       next: l =>{
         if(l.id != undefined)
-          this.router.navigate(['lobbies',l.id]);
+        {
+          if(isAI)
+            this.router.navigate(['lobbies',l.id,{ai: 'ai'}]);
+          else
+            this.router.navigate(['lobbies',l.id]);
+        }
       },
       error: (x: HttpErrorResponse) =>{
         let message = 'Error joining:\n';

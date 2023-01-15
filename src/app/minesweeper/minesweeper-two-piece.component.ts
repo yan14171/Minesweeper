@@ -18,7 +18,32 @@ export class MinesweeperTwoPieceComponent implements OnInit, OnDestroy {
     this.gameService.isGameOver = false;
 
     let lobbyid = route.snapshot.params["lobbyId"];
-    this.start(lobbyid);
+    
+    let isAI = route.snapshot.params["ai"];
+
+    this.start(lobbyid).then(_ => {
+      if(isAI)
+      prompt(`To connect to this lobby use this signalR connection string.\nFind rpc details in the console!`, this.gameService.getAIUrl(lobbyid));
+      console.log(
+        `RPC interface used: 
+          Task EndGame();
+          Task Flag(CellDTO cell);
+          Task PrepareGame();
+          Task Reveal(CellDTO cell);
+          Task RevealAround(CellDTO cell);
+
+          CellDTO model: 
+          {
+            "x": 0,
+            "y": 0,
+            "isFlaged": false,
+            "isRevealed": false,
+            "isBomb": false,
+            "bombCount": 0
+          }
+        `
+      );
+    });
   }
   public async start(lobbyId: number){
     try
