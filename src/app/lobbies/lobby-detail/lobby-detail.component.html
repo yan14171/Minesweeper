@@ -30,6 +30,11 @@
           <h5>Disconnect</h5>
         </button>
       </div>
+      <div class="custom-row">
+        <button class="btn-light" (click)="onCheckStats()" [disabled]="canJoin">
+          <h5>Check AI stats</h5>
+        </button>
+      </div>
       <div class="col-md-12">
         <button class="btn-light" (click)="onClose()">
           <h5>Close</h5>
@@ -40,6 +45,50 @@
       <h4 class="alert-danger" *ngIf="errorJoining">
         {{errorMessage}}
       </h4>
+    </div>
+    <div *ngIf="isAiStatsVisible" class="dialog-overlay">
+      <div class="dialog">
+        <h2>Statistics</h2>
+        <div class="table-container" *ngIf="this.filteredStats.length > 0">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th *ngFor="let stat of filteredStats">{{ stat.userName }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Date</strong></td>
+                <td *ngFor="let stat of filteredStats">{{ stat.date | date }}</td>
+              </tr>
+              <tr>
+                <td><strong>Total Moves</strong></td>
+                <td *ngFor="let stat of filteredStats" [ngClass]="{'disabled': !isStatSuccessful(stat)}">{{ this._aiService.calculateTotalMoves(stat.revealMovesMade, stat.flagMovesMade) }}</td>
+              </tr>
+              <tr>
+                <td><strong>Efficency</strong></td>
+                <td *ngFor="let stat of filteredStats" [ngClass]="{'disabled': !isStatSuccessful(stat)}">{{ this._aiService.calculateEfficiencyMetric(stat.minesAtStart - stat.minesLeft, this._aiService.calculateTotalMoves(stat.revealMovesMade, stat.flagMovesMade)!, stat.secondsTaken) }}</td>
+              </tr>
+              <tr>
+                <td><strong>MPS</strong></td>
+                <td *ngFor="let stat of filteredStats" [ngClass]="{'disabled': !isStatSuccessful(stat)}">{{ this._aiService.calculateMovesPerSecond(this._aiService.calculateTotalMoves(stat.revealMovesMade, stat.flagMovesMade)!, stat.secondsTaken) }}</td>
+              </tr>
+              <tr>
+                <td><strong>MnPs</strong></td>
+                <td *ngFor="let stat of filteredStats" [ngClass]="{'disabled': !isStatSuccessful(stat)}">{{ this._aiService.calculateMinesPerSecond(stat.minesAtStart - stat.minesLeft, stat.secondsTaken) }}</td>
+              </tr>
+              <tr>
+                <td><strong>Accuracy</strong></td>
+                <td *ngFor="let stat of filteredStats" [ngClass]="{'disabled': !isStatSuccessful(stat)}">{{ this._aiService.calculateAccuracy(stat.minesAtStart - stat.minesLeft, stat.flagMovesMade) }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>*Results of unsuccessful attempts are greyed</p>
+        </div>
+        <p *ngIf="this.filteredStats.length === 0">No stats available</p>
+        <button mat-button (click)="onCloseStats()">Close</button>
+      </div>
     </div>
     
   </div>

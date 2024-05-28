@@ -15,6 +15,7 @@ export class BoardOnlineService implements IBoardService{
   public isGameOver: boolean = false;
   public isStarted: boolean = false;
   private _grid: Cell[][] = [];
+  private _aiLobbyId: number = 0;
 
   constructor(public stats: StatsService,
     private _hub: GameHub
@@ -31,6 +32,7 @@ export class BoardOnlineService implements IBoardService{
     await this._hub.start(lobbyId);
   }
   public getAIUrl(lobbyID: number){
+    this._aiLobbyId = lobbyID;
     return this._hub.getAIUrl(lobbyID);
   }
   public async stop(): Promise<void>{
@@ -61,11 +63,16 @@ export class BoardOnlineService implements IBoardService{
   private async endGame(): Promise<void> {
     await this._hub.endGame();
   }
-  private refreshState(state: BoardState) {
+  private async refreshState(state: BoardState) {
     this._grid = state.grid;
 
+    if(this.stats.isAi)
+      await this.stats.loadAIstats(this._aiLobbyId)?.toPromise();
+    
     if (state.isGameOver)
-      this.stats.stop();
+      {
+        this.stats.stop();
+      }
 
     if (!this.isStarted && state.isStarted)
       this.stats.start(state.bombsGenerated);

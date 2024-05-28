@@ -2,6 +2,15 @@
   <div class="alert-box">
     <div class="results">
       <div class="d-flex flex-column">
+        <div *ngIf= "stats?.isAi">
+           <div class="p-2">Tested AI has finished the field <b style='font-size: large;' *ngIf="this.stats!.bombsLeft !=0">un</b>succesfully in {{this.stats?.timeSpent}} seconds</div>
+          <!--<div class="p-2">Throughout the session an average MPS was {{getMovesPerSecond()}}</div>
+          <div class="p-2">Throughout the session an average MnPS was {{getMinesPerSecond()}}</div>
+          <div class="p-2">Throughout the session total accuracy was {{getAccuracy()}}</div>
+          <div class="p-2">Throughout the session calculated efficiency was {{getEfficiencyMetric()}}</div>
+          <div class="p-2">Reveals made: {{this.stats?.revealMovesMade}} Flags made: {{this.stats?.flagMovesMade}}</div> -->
+          <div class="p-2" [innerHTML]="getPerformanceOverview()"></div>
+        </div>
         <div class="p-2">{{message}}</div>
         <div class="p-2">
           <div class="d-flex justify-content-between">

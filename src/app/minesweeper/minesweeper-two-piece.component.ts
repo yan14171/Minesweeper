@@ -20,6 +20,7 @@ export class MinesweeperTwoPieceComponent implements OnInit, OnDestroy {
     let lobbyid = route.snapshot.params["lobbyId"];
     
     let isAI = route.snapshot.params["ai"];
+    this.gameService.stats.isAi = isAI == 'ai';
 
     this.start(lobbyid).then(_ => {
       if(isAI)

@@ -2,7 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Lobby } from 'src/app/models/lobby';
+import { Stat } from 'src/app/models/stat';
+import { AIStatService } from 'src/app/services/aistat.service';
 import { LobbyService } from 'src/app/services/lobby.service';
+import { StatsService } from 'src/app/services/stats.service';
 
 @Component({
   selector: 'app-lobby-detail',
@@ -13,8 +16,12 @@ export class LobbyDetailComponent{
 
   public errorJoining: boolean = false;
   public errorMessage: string = '';
+  public isAiStatsVisible: boolean = false;
+  public filteredStats: Stat[] = [];
+  public _aiService: AIStatService = new AIStatService(0, 0, 0, 0);
 
   constructor(private _lobbyService: LobbyService,
+              private _statsService: StatsService,
               private router: Router){
             }
   onJoin(isAI = false): void{
@@ -67,6 +74,20 @@ export class LobbyDetailComponent{
       }
     )
   }
+  onCheckStats() {
+    this.isAiStatsVisible = true;
+    let lobbyusernames = this.lobby?.userIdentities.map(x => x.slice(0, x.indexOf('@')));
+    const currentTime = new Date();
+    const tenMinutesAgo = new Date(currentTime.getTime() - (3 * 60 * 60 * 1000) - (10 * 60 * 1000));
+
+    this.filteredStats = this._statsService.globalStats.filter(x => {
+      const sharedTime = new Date(x.date);
+      return lobbyusernames?.includes(x.userName) && sharedTime > tenMinutesAgo;
+    });
+  }
+  onCloseStats() {
+    this.isAiStatsVisible = false;
+  }
   showError(message: string): void{
     this.errorMessage = message;
     this.errorJoining = true;
@@ -94,5 +115,8 @@ export class LobbyDetailComponent{
   private get joinedLobby()
   {
      return this._lobbyService.joinedLobby;
+  }
+  public isStatSuccessful(stat: Stat): boolean{
+    return stat.minesLeft == 0;
   }
 }
